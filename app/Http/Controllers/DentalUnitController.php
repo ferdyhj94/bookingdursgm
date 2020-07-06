@@ -32,20 +32,33 @@ class DentalUnitController extends Controller
     public function tambah()
     {
         $departemen = DB::table('departemens')->select('*')->orderBy('nama_departemen','asc')->get();
-
-        return view('dentalunit.tambah',compact('departemen'));
+        $jamOperasional = DB::table('jam_operasionals')->get();
+        return view('dentalunit.tambah',compact('departemen','jamOperasional'));
     }
 
     public function create(Request $request)
     {
-        $userId = Auth::user()->id;
-        $dentalUnit = new DentalUnit;
-        $dentalUnit->no = $request->no;
-        $dentalUnit->id_departemen = $request->departemen;
-        $dentalUnit->created_by = $userId;
-        $dentalUnit->updated_by = $userId;
-        $dentalUnit->save();
-        session()->flash('message','Menambah data dental unit berhasil!');
+        $jamOperasional = $request->jam_operasionals;
+        // dump($jamOperasional);die();
+        foreach($jamOperasional as $data){
+            $userId = Auth::user()->id;
+            DB::table('dental_units')->insert([
+                'no'=>$request->no,
+                'id_departemen'=>$request->departemen,
+                'id_jam_operasional'=>$data,
+                'created_by'=>$userId,
+                'updated_by'=>$userId
+            ]
+        );
+            // $dentalUnit = new DentalUnit;
+            // $dentalUnit->no = $request->no;
+            // $dentalUnit->id_departemen = $request->departemen;
+            // $dentalUnit->id_jam_operasional = $data->id_jam_operasional;
+            // $dentalUnit->created_by = $userId;
+            // $dentalUnit->updated_by = $userId;
+            // $dentalUnit->save();
+        }
+            session()->flash('message','Menambah data dental unit berhasil!');
         return redirect('master-data/dental-unit');
 
     }
@@ -109,7 +122,8 @@ class DentalUnitController extends Controller
     public function pesan()
     {
         $departemen = DB::table('departemens')->get();
-        return view('dentalUnit.cari',compact('departemen'));
+        $jamOperasional = DB::table('jam_operasionals')->get();
+        return view('dentalUnit.cari',compact('departemen','jamOperasional'));
     }
 
     public function hasil_pencarian(Request $request)
@@ -117,6 +131,8 @@ class DentalUnitController extends Controller
         $departemen = DB::table('departemens')->get();
         $tanggalPesan = $request->tanggal_praktek;
         $departemenSearch = $request->departemen;
+        $jamOperasional = DB::table('jam_operasionals')->get();
+        $jamOperasionalSearch = $request->jam_operasionals;
         $resDentalUnit = DB::table('dental_units')
                          ->select('dental_units.id as id_dental_unit','dental_units.id_departemen','dental_units.no','dental_units.role','jam_operasionals.id as id_opeasional','jam_operasionals.jam_mulai','jam_operasionals.jam_selesai','departemens.nama_departemen')
                          ->join('departemens','dental_units.id_departemen','=','departemens.id')
@@ -128,8 +144,9 @@ class DentalUnitController extends Controller
                                    ->from('transaksi_bookings');
                          })
                          ->where('departemens.id',$departemenSearch)
+                         ->where('jam_operasionals.id',$jamOperasionalSearch)
                          ->get(); 
-        return view('dentalUnit.cari',compact('resDentalUnit','departemen','tanggalPesan'));
+        return view('dentalUnit.cari',compact('resDentalUnit','departemen','tanggalPesan','jamOperasional'));
     }
 
     public function daftar_pesan(Request $request,$id,$tanggalPesan)

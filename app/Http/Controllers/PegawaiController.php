@@ -37,7 +37,7 @@ class PegawaiController extends Controller
         $jumlah = "2";
 
         $user = new \App\User;
-        $user->name = $request->nama;
+        $user->name = $nama;
         $user->email = $request->email;
         $user->username = strtolower(implode("", array_slice(explode(" ", $nama), 0, $jumlah)));
         $user->remember_token = str_random(60);
@@ -51,7 +51,7 @@ class PegawaiController extends Controller
         //insert ke pegawai
         $userId = Auth::user()->id;
         $pegawai = new Pegawai;
-        $pegawai->user_id = $userId;
+        $pegawai->user_id = $user->id;
         $pegawai->nik = $request->nik;
         $pegawai->nama = $request->nama;
         $pegawai->jabatan = $request->jabatan;

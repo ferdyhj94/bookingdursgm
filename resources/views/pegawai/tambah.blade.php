@@ -4,7 +4,7 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Tambah Mahasiswa Koas</h1>
+		<h1 class="page-header">Tambah Data Pegawai</h1>
 	</div>
 	<!-- /.col-lg-12 -->
 </div>
@@ -27,41 +27,36 @@
 </div>
 @endif
 
-<div class="row">
-<form method="post" role="form" action="{{url('master-data/pegawai')}}" id="form">
-	{{ csrf_field() }}
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">Form Tambah</div>
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-lg-4">
-							<label>NIK</label>
-							<input type="text" class="form-control" name="nik" placeholder="NIK">	
-						</div>	
-						<div class="col-lg-4">
-							<label>Nama Pegawai</label>
-							<input type="text" class="form-control" name="nama" placeholder="Nama Pegawai">
-						</div>		
-                        <div class="col-lg-4">
-							<label>E-Mail</label>
-							<input type="email" class="form-control" name="email" placeholder="Angkatan">
-						</div>	
-						<div class="col-lg-4">
-							<label>Jabatan</label>
-							<input type="text" class="form-control" name="jabatan" placeholder="Jabatan">
-						</div>		
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-					<button type="submit" class="btn btn-primary">Simpan</button>
-					<button class="btn btn-danger" type="reset">Kosongkan Isian</button>
-					<a href="{{url('master-data/departemen')}}" class="btn btn-warning">Kembali</a>
-</form>
-</div>
+<div class="card">
+                                    <!-- <h5 class="card-header">Tambah Data Mahasiswa Koas</h5> -->
+                                    <div class="card-body">
+                                        <form  method="post" role="form" action="{{url('master-data/pegawai')}}">
+										{{ csrf_field() }}
+										<div class="form-group">
+                                                <!-- <label for="inputText3" class="col-form-label">Nomor Dental Unit</label> -->
+                                                <input id="inputText3" type="text"  name="nik" placeholder="NIP" class="form-control">
+                                            </div>
+											<div class="form-group">
+                                                <!-- <label for="inputText3" class="col-form-label">Departemen</label> -->
+                                                <input id="inputText3" type="text"  name="nama" placeholder="Nama Pegawai" class="form-control">
+                                            </div>
+											<div class="form-group">
+                                                <!-- <label for="inputText3" class="col-form-label">Departemen</label> -->
+                                                <input id="inputText3" type="email" name="email" placeholder="E-Mail" class="form-control">
+                                            </div>
+											<div class="form-group">
+                                                <!-- <label for="inputText3" class="col-form-label">Departemen</label> -->
+                                                <input id="inputText3" type="jabatan" name="jabatan" placeholder="Jabatan" class="form-control">
+                                            </div>
+											<div class="form-row">
+											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+											<button type="submit" class="btn btn-primary">Simpan</button>
+											<button class="btn btn-danger" type="reset">Kosongkan Isian</button>
+											<a href="{{url('master-data/pegawai')}}" class="btn btn-warning">Kembali</a>
+											</div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
 
 @endsection

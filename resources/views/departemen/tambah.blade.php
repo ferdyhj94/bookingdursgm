@@ -27,29 +27,24 @@
 </div>
 @endif
 
-<div class="row">
-<form method="post" role="form" action="{{url('master-data/departemen/simpan')}}" id="form">
-	{{ csrf_field() }}
-	<div class="row">
-		<div class="col-lg-8">
-			<div class="panel panel-default">
-				<div class="panel-heading">Form Tambah</div>
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-lg-8">
-							<label>Departemen</label>
-							<input type="text" class="form-control" name="nama" placeholder="Nama Departemen">	
-						</div>	
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-					<button type="submit" class="btn btn-primary">Simpan</button>
-					<button class="btn btn-danger" type="reset">Kosongkan Isian</button>
-					<a href="{{url('master-data/departemen')}}" class="btn btn-warning">Kembali</a>
-</form>
-</div>
+<div class="card">
+                                    <!-- <h5 class="card-header">Departemen</h5> -->
+                                    <div class="card-body">
+                                        <form  method="post" role="form" action="{{url('master-data/dental-unit/simpan')}}">
+										{{ csrf_field() }}
+										<div class="form-group">
+                                                <!-- <label for="inputText3" class="col-form-label">Departemen</label> -->
+                                                <input id="inputText3" type="text"  name="departemen" placeholder="Departemen" class="form-control">
+                                            </div>
+											<div class="form-row">
+											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+											<button type="submit" class="btn btn-primary">Simpan</button>
+											<button class="btn btn-danger" type="reset">Kosongkan Isian</button>
+											<a href="{{url('master-data/departemen')}}" class="btn btn-warning">Kembali</a>
+											</div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
 
 @endsection

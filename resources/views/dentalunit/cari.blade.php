@@ -49,6 +49,17 @@
                                                     Looks good!
                                                 </div> -->
                                             </div>
+											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="validationCustom02">Jam Praktek</label>
+												<select class="form-control" name="jam_operasionals" required>
+													@foreach($jamOperasional as $data)
+													<option value="{{$data->id}}">{{$data->jam_mulai}} - {{$data->jam_selesai}}</option>
+													@endforeach
+													</select>
+							                      <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
 											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 											<button type="submit" class="btn btn-primary">Cari</button>
                                         </div>

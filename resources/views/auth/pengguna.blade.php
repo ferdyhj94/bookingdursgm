@@ -7,7 +7,7 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
-<div>
+<!-- <div>
     <div>
         <div class ="col-md-6">
             <div class="btn-group" role="group">
@@ -15,7 +15,7 @@
                 
         </div>
     </div>
-</div>
+</div> -->
 @if(session()->has('message'))
 <div class="form-group">
     <div class="alert alert-dismissable alert-success">
@@ -24,20 +24,23 @@
     </div>
 </div>
 @endif
-
-<div class="table-responsive table-bordered">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nomor</th>
-                <th>Username</th>
-                <th>E-Mail</th>
-                <th>Role</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php 
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <!-- <h5 class="card-header"></h5> -->
+                                <div class="card-body">
+                                    <div class="table-responsive ">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nomor</th>
+                                                    <th>Username</th>
+                                                    <th>E-Mail</th>
+                                                    <th>Role</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php 
             $no=1;
             ?>
             @forelse($pengguna as $data)
@@ -59,10 +62,10 @@
         <td colspan="6"><center><strong>Kosong!</strong></center></td>
     </tr>
 @endforelse
-</tbody>
-</table>
-{{$pengguna->render()}}
-
-</div>
-</div>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 @endsection

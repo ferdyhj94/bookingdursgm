@@ -27,37 +27,30 @@
 </div>
 @endif
 
-<div class="row">
-<form method="post" role="form" action="{{url('master-data/koas/simpan')}}" id="form">
-	{{ csrf_field() }}
-	<div class="row">
-		<div class="col-lg-8">
-			<div class="panel panel-default">
-				<div class="panel-heading">Form Tambah</div>
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-lg-4">
-							<label>NIM</label>
-							<input type="text" class="form-control" name="no" placeholder="NIM">	
-						</div>	
-						<div class="col-lg-4">
-							<label>Nama Mahasiswa Koas</label>
-							<input type="text" class="form-control" name="nama" placeholder="Nama Mahasiswa Koas">
-						</div>		
-                        <div class="col-lg-4">
-							<label>Angkatan</label>
-							<input type="text" class="form-control" name="angkatan" placeholder="Angkatan">
-						</div>		
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-					<button type="submit" class="btn btn-primary">Simpan</button>
-					<button class="btn btn-danger" type="reset">Kosongkan Isian</button>
-					<a href="{{url('master-data/departemen')}}" class="btn btn-warning">Kembali</a>
-</form>
-</div>
-
+<div class="card">
+                                    <div class="card-body">
+                                        <form  method="post" role="form" action="{{url('master-data/koas/simpan')}}">
+										{{ csrf_field() }}
+										<div class="form-group">
+                                                <input id="inputText3" type="text"  name="nim" placeholder="NIP" class="form-control">
+                                            </div>
+											<div class="form-group">
+                                                <input id="inputText3" type="text"  name="nama" placeholder="Nama Pegawai" class="form-control">
+                                            </div>
+											<div class="form-group">
+                                                <input id="inputText3" type="email" name="angkatan" placeholder="E-Mail" class="form-control">
+                                            </div>
+											<div class="form-group">
+                                                <input id="inputText3" type="jabatan" name="jabatan" placeholder="Jabatan" class="form-control">
+                                            </div>
+											<div class="form-row">
+											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+											<button type="submit" class="btn btn-primary">Simpan</button>
+											<button class="btn btn-danger" type="reset">Kosongkan Isian</button>
+											<a href="{{url('master-data/koas')}}" class="btn btn-warning">Kembali</a>
+											</div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
 @endsection
