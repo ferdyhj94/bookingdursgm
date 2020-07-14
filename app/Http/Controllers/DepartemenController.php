@@ -28,9 +28,10 @@ class DepartemenController extends Controller
 
     function create(Request $request)
     {
+        // print($request->nama_departemen);die();
         $userId = Auth::user()->id;
         $departemen = new Departemen;
-        $departemen->nama_departemen = $request->nama;
+        $departemen->nama_departemen = $request->nama_departemen;
         $departemen->status = '1';
         $departemen->warna = '0';
         $departemen->created_by =  $userId;

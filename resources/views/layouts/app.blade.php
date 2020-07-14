@@ -157,24 +157,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('home')}}"><i class="fa fa-fw fa-rocket"></i>Beranda</a>
                             </li>
-                            @if(auth()->user()->role=='1')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('transaksi.index')}}"><i class="fa fa-fw fa-rocket"></i>Daftar Pemesan </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('dentalUnit.pesan')}}"><i class="fa fa-fw fa-rocket"></i>Pesan Dental Unit </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('transaksi.riwayat')}}"><i class="fa fa-fw fa-rocket"></i>Riwayat Pemesanan Dental Unit </a>
-                            </li>
-                            @elseif(auth()->user()->role=='2')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('dentalUnit.pesan')}}"><i class="fa fa-fw fa-rocket"></i>Pesan Dental Unit</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('transaksi.riwayat')}}"><i class="fa fa-fw fa-rocket"></i>Riwayat Pemesanan Dental Unit</a>
-                            </li>
-                            @elseif(auth()->user()->role=='0')
+                            @if(auth()->user()->role=='0')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('transaksi.index')}}"><i class="fa fa-fw fa-rocket"></i>Daftar Pemesan </a>
                             </li>
@@ -205,6 +188,20 @@
                                         </li>
                                     </ul>
                                 </div>
+                            </li>
+                            @elseif(auth()->user()->role=='1')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('transaksi.index')}}"><i class="fa fa-fw fa-rocket"></i>Daftar Pemesan </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('transaksi.riwayat')}}"><i class="fa fa-fw fa-rocket"></i>Riwayat Pemesanan Dental Unit </a>
+                            </li>
+                            @elseif(auth()->user()->role=='2')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('dentalUnit.pesan')}}"><i class="fa fa-fw fa-rocket"></i>Pesan Dental Unit</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('transaksi.riwayat')}}"><i class="fa fa-fw fa-rocket"></i>Riwayat Pemesanan Dental Unit</a>
                             </li><!--end master data-->
                             @endif
                         </ul>
