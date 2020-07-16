@@ -72,7 +72,8 @@ Route::post('pengaturan/jam-operasional','PengaturanController@jamOperasional');
 Route::group(['middleware' => ['auth','checkRole:0,1,2']], function () {
 Route::get('logout','LoginController@logout')->name('logout');
 Route::get('home','HomeController@index')->name('home');
-
+Route::get('pengguna/ubah-sandi','UserController@ubah_password')->name('pengguna.ubahSandi');
+Route::post('pengguna/submit-sandi','UserController@submit_sandi')->name('pengguna.submitSandi');
 Route::get('pesan/','DentalUnitController@pesan')->name('dentalUnit.pesan');
 Route::get('pesan/cari','DentalUnitController@hasil_pencarian')->name('dentalUnit.hasilPencarian');
 Route::get('pesan/daftar/{id}/{tanggal}','DentalUnitController@daftar_pesan')->name('dentalUnit.daftarPesan');
@@ -84,4 +85,10 @@ Route::post('transaksi/verifikasi/{id}','TransaksiBookingController@verifikasi')
 Route::post('transaksi/selesai/{id}','TransaksiBookingController@selesai')->name('transaksi.selesai');
 Route::post('transaksi/batal/{id}','TransaksiBookingController@batal')->name('transaksi.batal');
 Route::get('transaksi/riwayat','TransaksiBookingController@riwayat')->name('transaksi.riwayat');
+Route::get('transaksi/ubah-jadwal/{id}','TransaksiBookingController@ubahJadwal')->name('transaksi.ubahJadwal');
+Route::get('transaksi/batal/{id}','TransaksiBookingController@batal')->name('transaksi.batal');
+Route::get('transaksi/alih-pengguna/{id}','TransaksiBookingController@alihPengguna')->name('transaksi.alihPengguna');
+Route::get('transaksi/submit-alih-pengguna','TransaksiBookingController@alihPengguna')->name('transaksi.submitAlihPengguna');
+Route::get('transaksi/selesai/{id}','TransaksiBookingController@selesai')->name('transaksi.selesai');
+Route::get('autocomplete','TransaksiBookingController@autocomplete')->name('transaksi.autocomplete');
 });

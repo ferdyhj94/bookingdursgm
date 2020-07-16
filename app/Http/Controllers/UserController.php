@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
-use App\Users;
+use App\User;
+use App\Rules\MatchOldPassword;
+use Illuminate\Support\Facades\Hash;
+
 class UserController extends Controller
 {
     /**
@@ -93,5 +96,22 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function ubah_password()
+    {
+        return view('pengguna.ubahSandi');
+    }
+
+    function submit_sandi(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => ['required'],
+            'new_confirm_password' => ['same:new_password'],
+        ]);
+        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+        //dd('Password change successfully.');
+        return back();
     }
 }
