@@ -19,6 +19,8 @@ class DentalUnitController extends Controller
     {
         $dentalUnit = DB::table('dental_units')->select('dental_units.*','departemens.nama_departemen')
                                                ->join('departemens','dental_units.id_departemen','=','departemens.id')
+                                               ->orderBy('dental_units.no','asc')
+                                            //    ->orderBy('departemen.id','asc')
                                                ->paginate(10);
     // dump($dentalUnit);
         return view('dentalunit.read',compact('dentalUnit'));                                       
@@ -39,7 +41,6 @@ class DentalUnitController extends Controller
     public function create(Request $request)
     {
         $jamOperasional = $request->jam_operasionals;
-        // dump($jamOperasional);die();
         foreach($jamOperasional as $data){
             $userId = Auth::user()->id;
             DB::table('dental_units')->insert([
@@ -114,9 +115,10 @@ class DentalUnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id)
+    public function delete(Request $request,$id)
     {
-        
+        DB::table('dental_units')->where('id',$id)->delete();
+        return back()->with('message','Sukses menghapus dental unit');
     }
 
     public function pesan()
@@ -171,7 +173,6 @@ class DentalUnitController extends Controller
         $jamOperasional = DB::table('dental_units')->select('jam_operasionals.jam_mulai','jam_operasionals.jam_selesai')
                                              ->join('jam_operasionals','dental_units.id_jam_operasional','=','jam_operasionals.id')
                                              ->where('dental_units.id','=',$id)->first();
-                                            //  print_r($jamOperasional);die();
         $transaksi = new TransaksiBooking;
         $transaksi->id_dental_unit = $id;
         $transaksi->id_departemen = $idDepartemen->id_departemen;

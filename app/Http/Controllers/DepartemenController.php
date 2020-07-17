@@ -44,17 +44,18 @@ class DepartemenController extends Controller
 
     function edit($id)
     {
-        $departemen = DB::table('departemen')->where('id','=',$id)->first();
+        $departemen = DB::table('departemens')->where('id','=',$id)->first();
         return view('departemen.edit',compact('departemen'));
     }
 
     function storeEdit(Request $request,$id)
     {
+        $userId = Auth::user()->id;
         $departemen = Departemen::find($id);
-        $departemen->nama = $request->nama;
+        $departemen->nama_departemen = $request->nama_departemen;
         $departemen->updated_by = $userId;
         $departemen->update();
-
+        return redirect('master-data/departemen')->with('message','Sukses menghapus departemen');
     }
 
     function activate(Request $request)
@@ -66,8 +67,9 @@ class DepartemenController extends Controller
 
     function delete(Request $request, $id)
     {
-        $departemen = Departemen::find($id);
-        $departemen->delete();
-        return back();
+        // print($id);die();
+        DB::table('departemens')->where('id',$id)->delete();
+        return back()->with('message','Sukses menghapus departemen');
+
     }
 }

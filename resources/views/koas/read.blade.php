@@ -30,11 +30,11 @@
         <thead>
             <tr>
                 <th>Nomor</th>
-                <th>NIM</th>
+                <th>NIU</th>
                 <th>Mahasiswa Koas</th>
                 <th>Angkatan</th>
                 <th>Status</th>
-                <th>Aksi</th>
+                <!-- <th>Aksi</th> -->
             </tr>
         </thead>
         <tbody>
@@ -49,12 +49,11 @@
                 <td>{{$data->angkatan}}</td>
                 @if($data->status=='0') :
                     <td>Tidak Aktif</td>
-                @elseif($data->status=='1') :
+                @elseif($data->status=='1')
                 <td>Reguler</td>
-                @elseif($data->status=='2') :
+                @elseif($data->status=='2')
                     <td>Inhall</td>
                     @endif
-        <td><button type="button" data-toggle="modal" data-target="#hapusObat" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
     </tr>
     @empty
     <tr>

@@ -33,10 +33,9 @@
                                             <thead>
                                                 <tr>
                                                     <th>Nomor</th>
-                                                    <th>Username</th>
-                                                    <th>E-Mail</th>
+                                                    <th>Username <br>E-Mail</th>
+                                                    <th>Nama</th>
                                                     <th>Role</th>
-                                                    <th>Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -46,16 +45,15 @@
             @forelse($pengguna as $data)
             <tr>
                 <td>{{$no++}}</td>
-                <td>{{$data->username}}</td>
-                <td>{{$data->email}}</td>
-                @if($data->role=='0') :
-                    <td>Admin</td>
-                @elseif($data->role=='1') :
+                <td>{{$data->username}}<br>{{$data->email}}</td>
+                <td>{{$data->name}}</td>
+                @if($data->role=='0')
+                <td>Admin</td>
+                @elseif($data->role=='1')
                 <td>Pegawai</td>
-                @elseif($data->role=='2') :
+                @elseif($data->role=='2')
                     <td>Mahasiswa Koas</td>
                     @endif
-        <td><button type="button" data-toggle="modal" data-target="#hapusObat" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
     </tr>
     @empty
     <tr>

@@ -24,27 +24,29 @@ Route::group(['middleware' => ['auth','checkRole:0']], function () {
 Route::get('master-data/departemen','DepartemenController@index')->name('departemen.index');
 Route::get('master-data/departemen/tambah','DepartemenController@tambah')->name('departemen.tambah');
 Route::post('master-data/departemen/simpan','DepartemenController@create')->name('departemen.create');
-Route::get('master-data/departemen/{id}','DepartemenController@edit')->name('departemen.edit');
-Route::put('master-data/departemen','DepartemenController@storeEdit')->name('departemen.storeEdit');
-Route::delete('master-data/departemen','DepartemenController@delete')->name('departemen.delete');
+Route::get('master-data/departemen/edit/{id}','DepartemenController@edit')->name('departemen.edit');
+Route::post('master-data/departemen/submitEdit/{id}','DepartemenController@storeEdit')->name('departemen.storeEdit');
+Route::get('master-data/departemen/hapus/{id}','DepartemenController@delete')->name('departemen.delete');
 Route::post('master-data/departemen','DepartemenController@activate')->name('departemen.activate');
 
 Route::get('master-data/dental-unit','DentalUnitController@index')->name('dentalUnit.index');
 Route::get('master-data/dental-unit/tambah','DentalUnitController@tambah')->name('dentalUnit.tambah');
 Route::post('master-data/dental-unit/simpan','DentalUnitController@create')->name('dentalUnit.create');
 Route::get('master-data/dental-unit/{id}','DentalUnitController@edit')->name('dentalUnit.edit');
-Route::put('master-data/dental-unit','DentalUnitController@storeEdit')->name('dentalUnit.storeEdit');
-Route::delete('master-data/dental-unit','DentalUnitController@delete')->name('dentalUnit.delete');
-Route::post('master-data/dental-unit','DentalUnitController@activate')->name('dentalUnit.activate');
+Route::post('master-data/dental-unit','DentalUnitController@storeEdit')->name('dentalUnit.storeEdit');
+Route::get('master-data/dental-unit/hapus/{id}','DentalUnitController@delete')->name('dentalUnit.delete');
+Route::get('master-data/dental-unit/aktif/{id}','DentalUnitController@activate')->name('dentalUnit.activate');
+Route::get('master-data/dental-unit/nonaktif/{id}','DentalUnitController@deactivate')->name('dentalUnit.deactivate');
 Route::get('master-data/ketersediaan','DentalUnitController@ketersediaan')->name('dentalUnit.ketersediaan');
 
 Route::get('master-data/pegawai','PegawaiController@index')->name('pegawai.index');
 Route::get('master-data/pegawai/tambah','PegawaiController@tambah')->name('pegawai.tambah');
 Route::post('master-data/pegawai','PegawaiController@create')->name('pegawai.create');
-Route::get('master-data/pegawai/{id}','PegawaiController@edit')->name('pegawai.edit');
-Route::put('master-data/pegawai','PegawaiController@storeEdit')->name('pegawai.storeEdit');
-Route::delete('master-data/pegawai','PegawaiController@delete')->name('pegawai.delete');
-// Route::post('master-data/pegawai','PegawaiController@activate')->name('pegawai.activate');
+Route::get('master-data/pegawai/edit/{id}','PegawaiController@edit')->name('pegawai.edit');
+Route::post('master-data/pegawai/submitEdit{id}','PegawaiController@edit')->name('pegawai.edit');
+Route::get('master-data/pegawai/hapus/{id}','PegawaiController@delete')->name('pegawai.delete');
+Route::get('master-data/pegawai/active','PegawaiController@activate')->name('pegawai.activate');
+Route::get('master-data/pegawai/deactive','PegawaiController@deactivate')->name('pegawai.deactive');
 
 Route::get('master-data/koas','MhsKoasController@index')->name('koas.index');
 Route::get('master-data/koas/tambah','MhsKoasController@tambah')->name('koas.tambah');

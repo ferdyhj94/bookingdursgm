@@ -30,7 +30,7 @@
         <thead>
             <tr>
                 <th>Nomor</th>
-                <th>NIK</th>
+                <th>NIP</th>
                 <th>Nama Pegawai</th>
                 <th>Jabatan</th>
                 <th>Status</th>
@@ -47,13 +47,22 @@
                 <td>{{$data->nik}}</td>
                 <td>{{$data->nama}}</td>
                 <td>{{$data->jabatan}}</td>
-                @if($data->status=='0') :
+                @if($data->status=='0')
                     <td>Tidak Aktif</td>
-                @elseif($data->status=='1') :
+                @elseif($data->status=='1')
                 <td>Aktif</td>
                     @endif
-        <td><button type="button" data-toggle="modal" data-target="#hapusObat" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
-    </tr>
+                    <td>
+                    @if($data->status=='0')
+        <button class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                                        title="Non Aktif"><i class="fas fa-power-off"><a href="{{route('pegawai.activate',$data->id)}}"></a></i></button>
+            @else($data->status=='1')
+            <button class="btn btn-success" data-toggle="tooltip" data-placement="top"
+                                        title="Aktif"><i class="fas fa-power-off"><a href="{{route('pegawai.deactive',$data->id)}}"></a></i></button>
+                                        @endif
+                                        || <a href="{{route('pegawai.edit',$data->id)}}"><button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Ubah">
+                                    <i class="fas fa-pencil-alt"></i></button></a> </td>    
+                                </tr>
     @empty
     <tr>
         <td colspan="6"><center><strong>Kosong!</strong></center></td>

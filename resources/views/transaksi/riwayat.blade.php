@@ -23,7 +23,7 @@
             <ul class="nav nav-tabs" id="myTab2" role="tablist">
                 <li class="nav-item active show">
                     <a class="nav-link active show" id="tab-outline-two" data-toggle="tab" href="#pesananTerakhir"
-                        role="tab" aria-controls="profile" aria-selected="false">Pesanan Terakhir</a>
+                        role="tab" aria-controls="profile" aria-selected="false">Pesanan 7 Hari Terakhir</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="tab-outline-three" data-toggle="tab" href="#riwayatPesanan" role="tab"
@@ -37,7 +37,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>No. RM</th>
+                                <th>NIK<br>Nama Pasien</th>
                                 <th>No. Dental Unit<br>Tanggal Praktek <br>Departemen </th>
                                 <th>Status</th>
                             </tr>
@@ -47,19 +47,23 @@
                             @forelse($transaksiTerbaru as $data)
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td>{{$data->no_rm}}</td>
+                                <td>{{$data->nik}}</td>
                                 <td>{{$data->no}} <br> {{date("d F Y",strtotime($data->tanggal_pesan))}}
                                     <br>{{$data->nama_departemen}} </td>
                                 @if($data->status==0)
                                 <td><span class="badge badge-warning"> Tunda</span></td>
-                                <td><button class="btn btn-warning" data-toggle="tooltip" data-placement="top"
-                                        title="Hapus"><i class="fas fa-trash-alt"><a href="{{route('transaksi.verifikasi',$data->id_transaksi)}}"></a></i></button>
-                                    || <button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Ubah Jadwal"><i class="fas fa-pencil-alt">
-                                    <a href="{{route('transaksi.verifikasi',$data->id_transaksi)}}"></a></i>
-                                        </button></td> @elseif($data->status==1)
+                                <td><button class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                                        title="Hapus"><i class="fas fa-trash-alt"><a href="{{route('transaksi.batal',$data->id_transaksi)}}"></a></i></button>
+                                    || <a href="{{route('transaksi.ubahJadwal',$data->id_transaksi)}}"><button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Ubah Jadwal">
+                                    <i class="fas fa-pencil-alt"></i></button></a></td> 
+                                @elseif($data->status==1)
                                 <td><span class="badge badge-success">Diterima</span></td>
-                            </tr>
+                                <td><a href="{{route('transaksi.selesai',$data->id_transaksi)}}">
+                                    <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Selesai"><i class="fas fa-check"></i></button></a>
+                                    ||<a href="{{route('transaksi.alihPengguna',$data->id_transaksi)}}"> <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Alih Pengguna">
+                                    <i class="fas fa-share"></i></button></a></td>
                             @endif
+                            </tr>
                             @empty
                             <tr>
                                 <td colspan="5">Data Kosong!</td>
@@ -74,7 +78,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>No. RM</th>
+                                <th>NIK<br>Nama Pasien</th>
                                 <th>No. Dental Unit<br>Tanggal Praktek <br>Departemen </th>
                                 <th>Status</th>
                             </tr>
@@ -84,7 +88,7 @@
                             @forelse($riwayatTransaksi as $data)
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td>{{$data->no_rm}}</td>
+                                <td>{{$data->nik}}</td>
                                 <td>{{$data->no}} <br> {{date("d F Y",strtotime($data->tanggal_pesan))}}
                                     <br>{{$data->nama_departemen}} </td>
                                 @if($data->status==0)

@@ -24,14 +24,14 @@ class MhsKoasController extends Controller
     public function create(Request $request)
     {
         //insert ke user 
-        $jumlah = '2';
+        // $jumlah = '2';
         $user = new User;
         $user->name = $request->nama;
-        $user->username = strtolower(implode("", array_slice(explode(" ", $nama), 0, $jumlah)));
+        $user->username = $request->nim;
         $user->email = $request->email;
         $user->remember_token = str_random(60);
-        $user->password = bcrypt('12345');
-        $user->role = '1';
+        $user->password = bcrypt($request->nim);
+        $user->role = '2';
         $user->aktif = '1';
         $user->created_by = Auth::user()->id;
         $user->updated_by = Auth::user()->id;
@@ -40,7 +40,7 @@ class MhsKoasController extends Controller
         //insert ke mahasiswa koas
         $userId = Auth::user()->id;
         $MhsKoas = new MhsKoas;
-        $MhsKoas->nim = $request->no;
+        $MhsKoas->nim = $request->nim;
         $MhsKoas->nama = $request->nama;
         $MhsKoas->user_id = $user->id;
         $MhsKoas->angkatan = $request->angkatan;

@@ -40,7 +40,7 @@
                 <td>{{$no++}}</td>
                 <td>{{$data->nama_departemen}}</td>
                 <div class="row">
-                <td><a href="#" class="btn btn-warning">Ubah</a><a href="{{route('departemen.delete',$data->id)}}" class="btn btn-danger">Hapus</a></td>
+                <td><a href="{{route('departemen.edit',$data->id)}}" class="btn btn-warning">Ubah</a><a href="{{route('departemen.delete',$data->id)}}" class="btn btn-danger">Hapus</a></td>
                 </div>
                 </tr>
                 @empty

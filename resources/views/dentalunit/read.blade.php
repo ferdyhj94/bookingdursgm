@@ -44,14 +44,22 @@
                 <td>{{$no++}}</td>
                 <td>{{$data->no}}</td>
                 <td>{{$data->nama_departemen}}</td>
-                @if($data->role=='0') :
+                @if($data->role=='0') 
                     <td>Tersedia</td>
-                @elseif($data->role=='1') :
+                @elseif($data->role=='1') 
                 <td>Pending Booking</td>
-                @elseif($data->role=='2') :
+                @elseif($data->role=='2') 
                     <td>Booking</td>
                     @endif
-        <td><button type="button" data-toggle="modal" data-target="#hapusObat" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a></td>
+        <td>@if($data->role=='0')
+        <button class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                                        title="Non Aktif"><i class="fas fa-power-off"><a href="{{route('dentalUnit.activate',$data->id)}}"></a></i></button>
+            @else($data->role=='1')
+            <button class="btn btn-success" data-toggle="tooltip" data-placement="top"
+                                        title="Aktif"><i class="fas fa-power-off"><a href="{{route('dentalUnit.deactive',$data->id)}}"></a></i></button>
+                                        @endif
+                                        || <a href="{{route('dentalUnit.edit',$data->id)}}"><button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Ubah">
+                                    <i class="fas fa-pencil-alt"></i></button></a></td> </td>
     </tr>
     @empty
     <tr>

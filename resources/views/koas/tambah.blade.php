@@ -29,19 +29,19 @@
 
 <div class="card">
                                     <div class="card-body">
-                                        <form  method="post" role="form" action="{{url('master-data/koas/simpan')}}">
+                                        <form method="post" role="form" action="{{url('master-data/koas/simpan')}}">
 										{{ csrf_field() }}
 										<div class="form-group">
-                                                <input id="inputText3" type="text"  name="nim" placeholder="NIP" class="form-control">
+                                                <input type="text"  name="nim" placeholder="NIU (6 digit)" class="form-control">
                                             </div>
 											<div class="form-group">
-                                                <input id="inputText3" type="text"  name="nama" placeholder="Nama Pegawai" class="form-control">
+                                                <input type="text"  name="nama" placeholder="Nama Mahasiswa" class="form-control">
                                             </div>
 											<div class="form-group">
-                                                <input id="inputText3" type="email" name="angkatan" placeholder="E-Mail" class="form-control">
+                                                <input type="text" name="email" placeholder="E-Mail" class="form-control">
                                             </div>
 											<div class="form-group">
-                                                <input id="inputText3" type="jabatan" name="jabatan" placeholder="Jabatan" class="form-control">
+                                                <input type="text" name="angkatan" placeholder="Angkatan" class="form-control">
                                             </div>
 											<div class="form-row">
 											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">

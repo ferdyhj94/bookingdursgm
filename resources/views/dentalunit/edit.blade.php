@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title','Tambah Dental Unit')
+@section('title','Ubah Dental Unit')
 @section('content')
 
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Tambah Dental Unit</h1>
+		<h1 class="page-header">Ubah Dental Unit</h1>
 	</div>
 	<!-- /.col-lg-12 -->
 </div>
@@ -28,7 +28,7 @@
 @endif
 
 								<div class="card">
-                                    <h5 class="card-header">Tambah Dental Unit</h5>
+                                    <h5 class="card-header">Ubah Dental Unit</h5>
                                     <div class="card-body">
                                         <form  method="post" role="form" action="{{url('master-data/dental-unit/simpan')}}">
 										{{ csrf_field() }}
