@@ -113,7 +113,7 @@ class TransaksiBookingController extends Controller
             $transaksi->status = '1';
         }else if($request->submit=='batal')
         {
-            $transaksi->status = '3';
+            $transaksi->status = '4';
         }
         $transaksi->updated_by = Auth::user()->id;
         $transaksi->update();

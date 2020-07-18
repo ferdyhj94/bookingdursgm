@@ -40,9 +40,10 @@ class HomeController extends Controller
         ->whereNotIn('dental_units.id',function($query) use ($request)
         {
             $nowDate = (date("Y-m-d",strtotime(Carbon::now())));
-                             $status= ['0','1'];
+                            //status 0:tunda;1:diterima;2:dialihkan;5:selesai
+                             $status = [0,1,2,5];
                              $query->where('tanggal_pesan','=',$nowDate)
-                                    ->where('status',$status)
+                                    ->whereIn('status',$status)
                                    ->select('id_dental_unit')
                                    ->from('transaksi_bookings');
                          })

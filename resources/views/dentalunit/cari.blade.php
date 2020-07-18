@@ -27,7 +27,18 @@
 					<p>{{ Session::get('message') }}</p>
 				</div>
 				@endif
-				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="card">
+                                    <img class="img-fluid" src="{{url('storage/denah.png')}}" alt="Denah dental unit">
+                                    <div class="card-body">
+                                        <h3 class="card-title">Keterangan</h3>
+                                        <p class="card-text">Hijau : Tersedia</p>
+                                        <p class="card-text">Putih : Tidak digunakan/cadangan</p>
+                                        <!-- <p class="text-muted">Last updated 3 mins ago</p> -->
+                                    </div>
+                                </div>
+                            </div>
+				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="card">
                                 <h5 class="card-header">Pencarian Data Dental Unit</h5>
                                 <div class="card-body">
