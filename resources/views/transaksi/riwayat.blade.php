@@ -40,6 +40,7 @@
                                 <th>NIK<br>Nama Pasien</th>
                                 <th>No. Dental Unit<br>Tanggal Praktek <br>Departemen </th>
                                 <th>Status</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,21 +48,21 @@
                             @forelse($transaksiTerbaru as $data)
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td>{{$data->nik}}</td>
+                                <td>{{$data->nik}}<br> {{$data->nama_pasien}}</td>
                                 <td>{{$data->no}} <br> {{date("d F Y",strtotime($data->tanggal_pesan))}}
                                     <br>{{$data->nama_departemen}} </td>
                                 @if($data->status==0)
                                 <td><span class="badge badge-warning"> Tunda</span></td>
-                                <td><button class="btn btn-danger" data-toggle="tooltip" data-placement="top"
-                                        title="Hapus"><i class="fas fa-trash-alt"><a href="{{route('transaksi.batal',$data->id_transaksi)}}"></a></i></button>
-                                    || <a href="{{route('transaksi.ubahJadwal',$data->id_transaksi)}}"><button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Ubah Jadwal">
-                                    <i class="fas fa-pencil-alt"></i></button></a></td> 
                                 @elseif($data->status==1)
                                 <td><span class="badge badge-success">Diterima</span></td>
-                                <td><a href="{{route('transaksi.selesai',$data->id_transaksi)}}">
-                                    <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Selesai"><i class="fas fa-check"></i></button></a>
-                                    ||<a href="{{route('transaksi.alihPengguna',$data->id_transaksi)}}"> <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Alih Pengguna">
-                                    <i class="fas fa-share"></i></button></a></td>
+                                @elseif($data->status==2)
+                                <td><span class="badge badge-warning">Dialihkan</span></td>
+                                @elseif($data->status==3)
+                                <td><span class="badge badge-success">Selesai</span></td>
+                                @elseif($data->status==4)
+                                <td><span class="badge badge-danger">Batal</span></td>
+                                @elseif($data->status==5)
+                                <td><span class="badge badge-warning">Ubah Jadwal</span></td>
                             @endif
                             </tr>
                             @empty
@@ -88,13 +89,21 @@
                             @forelse($riwayatTransaksi as $data)
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td>{{$data->nik}}</td>
+                                <td>{{$data->nik}}<br>{{$data->nama_pasien}}</td>
                                 <td>{{$data->no}} <br> {{date("d F Y",strtotime($data->tanggal_pesan))}}
                                     <br>{{$data->nama_departemen}} </td>
                                 @if($data->status==0)
-                                <td>Tunda</td>
+                                <td><span class="badge badge-default">Tunda</span></td>
                                 @elseif($data->status==1)
-                                <td>Diterima</td>
+                                <td><span class="badge badge-success">Diterima</span></td>
+                                @elseif($data->status==2)
+                                <td><span class="badge badge-warning">Dialihkan</span></td>
+                                @elseif($data->status==3)
+                                <td><span class="badge badge-success">Selesai</span></td>
+                                @elseif($data->status==4)
+                                <td><span class="badge badge-danger">Batal</span></td>
+                                @elseif($data->status==5)
+                                <td><span class="badge badge-warning">Ubah Jadwal</span></td>
                             </tr>
                             @endif
                             @empty

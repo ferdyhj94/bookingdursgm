@@ -62,8 +62,7 @@
                                     <td>{{date("d M Y",strtotime($data->tanggal_pesan))}}<br>{{date("H:i",strtotime($data->jam_mulai))}}
                                         - {{date("H:i",strtotime($data->jam_selesai))}} </td>
                                     <td>
-                                        <button value="verifikasi" name="submit"
-                                            class="btn btn-success">Verifikasi</button>
+                                        <button value="verifikasi" name="submit" class="btn btn-success">Verifikasi</button>
                                         <button value="batal" name="submit" class="btn btn-danger">Batal</button>
                                     </td>
                                 </form>
@@ -71,7 +70,7 @@
                             @empty
                             <tr>
                                 <td>
-                                    <center>Data tidak ditemukan!</center>
+                                   <td colspan="5"> <center>Data tidak ditemukan!</center></td>
                                 </td>
                             </tr>
                             @endforelse
