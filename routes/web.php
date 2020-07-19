@@ -36,7 +36,7 @@ Route::get('master-data/dental-unit/{id}','DentalUnitController@edit')->name('de
 Route::post('master-data/dental-unit','DentalUnitController@storeEdit')->name('dentalUnit.storeEdit');
 Route::get('master-data/dental-unit/hapus/{id}','DentalUnitController@delete')->name('dentalUnit.delete');
 Route::get('master-data/dental-unit/aktif/{id}','DentalUnitController@activate')->name('dentalUnit.activate');
-Route::get('master-data/dental-unit/nonaktif/{id}','DentalUnitController@deactivate')->name('dentalUnit.deactivate');
+Route::get('master-data/dental-unit/nonaktif/{id}','DentalUnitController@deactive')->name('dentalUnit.deactive');
 Route::get('master-data/ketersediaan','DentalUnitController@ketersediaan')->name('dentalUnit.ketersediaan');
 
 Route::get('master-data/pegawai','PegawaiController@index')->name('pegawai.index');
@@ -45,7 +45,7 @@ Route::post('master-data/pegawai','PegawaiController@create')->name('pegawai.cre
 Route::get('master-data/pegawai/edit/{id}','PegawaiController@edit')->name('pegawai.edit');
 Route::post('master-data/pegawai/submitEdit{id}','PegawaiController@edit')->name('pegawai.edit');
 Route::get('master-data/pegawai/hapus/{id}','PegawaiController@delete')->name('pegawai.delete');
-Route::get('master-data/pegawai/active','PegawaiController@activate')->name('pegawai.activate');
+Route::get('master-data/pegawai/activate','PegawaiController@activate')->name('pegawai.activate');
 Route::get('master-data/pegawai/deactive','PegawaiController@deactivate')->name('pegawai.deactive');
 
 Route::get('master-data/koas','MhsKoasController@index')->name('koas.index');
