@@ -54,7 +54,7 @@
 											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
 											<button type="submit" class="btn btn-primary">Simpan</button>
 											<button class="btn btn-danger" type="reset">Kosongkan Isian</button>
-											<a href="{{url('master-data/departemen')}}" class="btn btn-warning">Kembali</a>
+											<a href="{{route('dentalUnit.index')}}" class="btn btn-warning">Kembali</a>
 											</div>
                                             </div>
                                         </form>

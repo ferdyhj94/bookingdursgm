@@ -29,7 +29,7 @@
 				@endif
 				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="card">
-                                    <img class="img-fluid" src="{{url('storage/denah.png')}}" alt="Denah dental unit">
+                                    <img class="img-fluid" src="{{url('storage/denahtemp.png')}}" alt="Denah dental unit">
                                     <div class="card-body">
                                         <h3 class="card-title">Keterangan</h3>
                                         <p class="card-text">Hijau : Tersedia</p>
