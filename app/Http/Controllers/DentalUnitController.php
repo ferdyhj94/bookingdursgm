@@ -17,12 +17,11 @@ class DentalUnitController extends Controller
      */
     public function index()
     {
-        $dentalUnit = DB::table('dental_units')->select('dental_units.*','departemens.nama_departemen')
+        $dentalUnit = DB::table('dental_units')->select('dental_units.*','departemens.nama_departemen','jam_operasionals.jam_mulai','jam_operasionals.jam_selesai')
                                                ->join('departemens','dental_units.id_departemen','=','departemens.id')
+                                               ->join('jam_operasionals','dental_units.id_jam_operasional','jam_operasionals.id')
                                                ->orderBy('dental_units.no','asc')
-                                            //    ->orderBy('departemen.id','asc')
                                                ->paginate(10);
-    // dump($dentalUnit);
         return view('dentalunit.read',compact('dentalUnit'));                                       
     }
 
@@ -51,13 +50,6 @@ class DentalUnitController extends Controller
                 'updated_by'=>$userId
             ]
         );
-            // $dentalUnit = new DentalUnit;
-            // $dentalUnit->no = $request->no;
-            // $dentalUnit->id_departemen = $request->departemen;
-            // $dentalUnit->id_jam_operasional = $data->id_jam_operasional;
-            // $dentalUnit->created_by = $userId;
-            // $dentalUnit->updated_by = $userId;
-            // $dentalUnit->save();
         }
             session()->flash('message','Menambah data dental unit berhasil!');
         return redirect('master-data/dental-unit');
@@ -128,6 +120,25 @@ class DentalUnitController extends Controller
         return view('dentalUnit.cari',compact('departemen','jamOperasional'));
     }
 
+    function deactive(Request $request,$id)
+    {
+        $dentalUnit = DentalUnit::find($id);
+        $dentalUnit->role = 1;
+        $dentalUnit->updated_by = Auth::user()->id;
+        $dentalUnit->update();
+        return redirect('master-data/dental-unit')->with('message','Sukses menonaktifkan status dental unit');       
+    }
+
+    function activate(Request $request,$id)
+    {
+        $dentalUnit = DentalUnit::find($id);
+        $dentalUnit->role = 0;
+        $dentalUnit->updated_by = Auth::user()->id;
+        $dentalUnit->update();
+        return redirect('master-data/dental-unit')->with('message','Sukses mengaktifkan status dental unit');       
+
+    }
+
     public function hasil_pencarian(Request $request)
     {
         $departemen = DB::table('departemens')->get();
@@ -141,21 +152,24 @@ class DentalUnitController extends Controller
                          ->join('jam_operasionals','dental_units.id_jam_operasional','=','jam_operasionals.id')
                          ->whereNotIn('dental_units.id',function($query) use ($request)
                          {
+                            // 0:tunda,1:diterima,2:dialihkan;3:selesai;4:batal;5:diubah 	
+                             $status = [0,1,2,5];//status yang dipakai, kecuali yang dibatalkan, dental unit masuk list pencarian
                              $query->where('tanggal_pesan','=',$request->tanggal_praktek)
                                    ->select('id_dental_unit')
-                                   ->from('transaksi_bookings');
+                                   ->from('transaksi_bookings')
+                                   ->whereIn('status',$status);
                          })
                          ->where('departemens.id',$departemenSearch)
                          ->where('jam_operasionals.id',$jamOperasionalSearch)
+                        //  ->where('transaksi_bookings.status','=','4')
+                        ->where('dental_units.role','=',0)//status dental unit yang aktif
+                        ->orderBy('dental_units.no','asc')
                          ->get(); 
         return view('dentalUnit.cari',compact('resDentalUnit','departemen','tanggalPesan','jamOperasional'));
     }
 
     public function daftar_pesan(Request $request,$id,$tanggalPesan)
     {
-        // $tanggalBooking = $this->hasil_pencarian($tanggalPesan);
-        // print($tanggalPesan);die();
-        // $detailDu = DentalUnit::find($id);
         $user = Auth::user()->username;
         $user = DB::table('mahasiswa_koas')->where('nim','=',$user)->first();
         $detailDu = DB::table('dental_units')->select('dental_units.id','dental_units.no','dental_units.id_departemen','dental_units.role','departemens.nama_departemen','jam_operasionals.jam_mulai','jam_operasionals.jam_selesai')
@@ -163,7 +177,6 @@ class DentalUnitController extends Controller
                                              ->join('jam_operasionals','dental_units.id_jam_operasional','=','jam_operasionals.id')
                                              ->where('dental_units.id','=',$id)
                                              ->first();
-                                            //  print_r($user);die();
         return view('dentalUnit.daftar',compact('detailDu','tanggalPesan','user'));
     }
 
