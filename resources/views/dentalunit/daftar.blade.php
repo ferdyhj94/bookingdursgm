@@ -47,7 +47,7 @@
 											</div>
 											<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                                                 <label for="validationCustom02">Angkatan</label>
-												<input type="text" class="form-control" name="nama" value="{{$user->angkatan}}" required readonly>	
+												<input type="text" class="form-control" name="angkatan" value="{{$user->angkatan}}" required>	
                                                 <!-- <div class="valid-feedback">
                                                     Looks good!
                                                 </div> -->

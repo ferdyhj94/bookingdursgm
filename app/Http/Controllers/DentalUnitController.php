@@ -186,15 +186,20 @@ class DentalUnitController extends Controller
         $jamOperasional = DB::table('dental_units')->select('jam_operasionals.jam_mulai','jam_operasionals.jam_selesai')
                                              ->join('jam_operasionals','dental_units.id_jam_operasional','=','jam_operasionals.id')
                                              ->where('dental_units.id','=',$id)->first();
+        $time = strtotime($jamOperasional->jam_mulai);
+        $expiredTime = date("yy-m-d H:i:s",strtotime('+30 minutes',$time));
+        // print($expiredTime);die();
         $transaksi = new TransaksiBooking;
         $transaksi->id_dental_unit = $id;
         $transaksi->id_departemen = $idDepartemen->id_departemen;
         $transaksi->nik = $request->nik;
         $transaksi->nama_pasien = $request->nama_pasien;
         $transaksi->id_user = Auth::user()->id;
+        $transaksi->angkatan = $request->angkatan;
         $transaksi->tanggal_pesan = $request->tanggal_praktek;
         $transaksi->jam_mulai = $jamOperasional->jam_mulai;
         $transaksi->jam_selesai = $jamOperasional->jam_selesai;
+        $transaksi->expired_time = $expiredTime;
         $transaksi->created_by = Auth::user()->id;
         $transaksi->updated_by = Auth::user()->id;
         $transaksi->save();
