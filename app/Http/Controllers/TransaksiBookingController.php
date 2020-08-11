@@ -8,6 +8,8 @@ use App\TransaksiBooking;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\transaksiExcels;
 
 class TransaksiBookingController extends Controller
 {
@@ -123,21 +125,42 @@ class TransaksiBookingController extends Controller
 
     function riwayat()
     {
-        $transaksiTerbaru = DB::table('transaksi_bookings')->select('transaksi_bookings.id as id_transaksi','transaksi_bookings.id_dental_unit','transaksi_bookings.id_departemen','transaksi_bookings.nik','transaksi_bookings.tanggal_pesan','transaksi_bookings.status','transaksi_bookings.nama_pasien','transaksi_bookings.jam_mulai','transaksi_bookings.jam_selesai','dental_units.no','departemens.nama_departemen')
-                                                           ->join('dental_units','transaksi_bookings.id_dental_unit','=','dental_units.id')
-                                                           ->join('departemens','transaksi_bookings.id_departemen','=','departemens.id')
-                                                           ->whereDate('transaksi_bookings.created_at', '>', Carbon::now()->subDays(7))
-                                                           ->orderBy('transaksi_bookings.tanggal_pesan','DESC')
-                                                           ->orderBy('transaksi_bookings.id','DESC')
-                                                           ->paginate(5);
-                                                           
-                                                           $riwayatTransaksi = DB::table('transaksi_bookings')->select('transaksi_bookings.id_dental_unit','transaksi_bookings.id_departemen','transaksi_bookings.nik','transaksi_bookings.tanggal_pesan','transaksi_bookings.status','transaksi_bookings.jam_mulai','transaksi_bookings.nama_pasien','transaksi_bookings.jam_selesai','dental_units.no','departemens.nama_departemen')
-                                                           ->join('dental_units','transaksi_bookings.id_dental_unit','=','dental_units.id')
-                                                           ->join('departemens','transaksi_bookings.id_departemen','=','departemens.id')
-                                                           ->orderBy('transaksi_bookings.tanggal_pesan','DESC')
-                                                           ->orderBy('transaksi_bookings.id','DESC')
-                                                           ->paginate(9);
-        return view('transaksi.riwayat',compact('transaksiTerbaru','riwayatTransaksi'));                                                           
+            $transaksiTerbaru = DB::table('transaksi_bookings')->select('transaksi_bookings.id as id_transaksi','transaksi_bookings.id_dental_unit','transaksi_bookings.id_departemen','transaksi_bookings.nik','transaksi_bookings.tanggal_pesan','transaksi_bookings.status','transaksi_bookings.nama_pasien','transaksi_bookings.jam_mulai','transaksi_bookings.jam_selesai','dental_units.no','departemens.nama_departemen', 'mahasiswa_koas.nama as nama_koas','mahasiswa_koas.nim','mahasiswa_koas.angkatan')
+                                                               ->join('dental_units','transaksi_bookings.id_dental_unit','=','dental_units.id')
+                                                               ->join('departemens','transaksi_bookings.id_departemen','=','departemens.id')
+                                                               ->join('mahasiswa_koas','transaksi_bookings.id_user','=','mahasiswa_koas.user_id')
+                                                               ->whereDate('transaksi_bookings.created_at', '>', Carbon::now()->subDays(7))
+                                                               ->where('transaksi_bookings.id_user','=',Auth::user()->id)
+                                                               ->orderBy('transaksi_bookings.tanggal_pesan','DESC')
+                                                               ->orderBy('transaksi_bookings.id','DESC')
+                                                               ->paginate(5);
+                                                               
+            $transaksiTerbaruAll = DB::table('transaksi_bookings')->select('transaksi_bookings.id as id_transaksi','transaksi_bookings.id_dental_unit','transaksi_bookings.id_departemen','transaksi_bookings.nik','transaksi_bookings.tanggal_pesan','transaksi_bookings.status','transaksi_bookings.nama_pasien','transaksi_bookings.jam_mulai','transaksi_bookings.jam_selesai','dental_units.no','departemens.nama_departemen', 'mahasiswa_koas.nama as nama_koas','mahasiswa_koas.nim','mahasiswa_koas.angkatan')
+                                                               ->join('dental_units','transaksi_bookings.id_dental_unit','=','dental_units.id')
+                                                               ->join('departemens','transaksi_bookings.id_departemen','=','departemens.id')
+                                                               ->join('mahasiswa_koas','transaksi_bookings.id_user','=','mahasiswa_koas.user_id')
+                                                               ->whereDate('transaksi_bookings.created_at', '>', Carbon::now()->subDays(7))
+                                                               ->orderBy('transaksi_bookings.tanggal_pesan','DESC')
+                                                               ->orderBy('transaksi_bookings.id','DESC')
+                                                               ->paginate(10);
+                                                               
+            $riwayatTransaksi = DB::table('transaksi_bookings')->select('transaksi_bookings.id_dental_unit','transaksi_bookings.id_departemen','transaksi_bookings.nik','transaksi_bookings.tanggal_pesan','transaksi_bookings.status','transaksi_bookings.jam_mulai','transaksi_bookings.nama_pasien','transaksi_bookings.jam_selesai','dental_units.no','departemens.nama_departemen', 'mahasiswa_koas.nama as nama_koas','mahasiswa_koas.nim','mahasiswa_koas.angkatan')
+                                                               ->join('dental_units','transaksi_bookings.id_dental_unit','=','dental_units.id')
+                                                               ->join('departemens','transaksi_bookings.id_departemen','=','departemens.id')
+                                                               ->join('mahasiswa_koas','transaksi_bookings.id_user','=','mahasiswa_koas.user_id')
+                                                               ->where('transaksi_bookings.id_user','=',Auth::user()->id)
+                                                               ->orderBy('transaksi_bookings.tanggal_pesan','DESC')
+                                                               ->orderBy('transaksi_bookings.id','DESC')
+                                                               ->paginate(10);
+                                                               
+            $riwayatTransaksiAll = DB::table('transaksi_bookings')->select('transaksi_bookings.id_dental_unit','transaksi_bookings.id_departemen','transaksi_bookings.nik','transaksi_bookings.tanggal_pesan','transaksi_bookings.status','transaksi_bookings.jam_mulai','transaksi_bookings.nama_pasien','transaksi_bookings.jam_selesai','dental_units.no','departemens.nama_departemen', 'mahasiswa_koas.nama as nama_koas','mahasiswa_koas.nim','mahasiswa_koas.angkatan')
+                                                               ->join('dental_units','transaksi_bookings.id_dental_unit','=','dental_units.id')
+                                                               ->join('departemens','transaksi_bookings.id_departemen','=','departemens.id')
+                                                               ->join('mahasiswa_koas','transaksi_bookings.id_user','=','mahasiswa_koas.user_id')
+                                                               ->orderBy('transaksi_bookings.tanggal_pesan','DESC')
+                                                               ->orderBy('transaksi_bookings.id','DESC')
+                                                               ->paginate(10);
+            return view('transaksi.riwayat',compact('transaksiTerbaru','riwayatTransaksi','riwayatTransaksiAll','transaksiTerbaruAll'));                                                                                                         
     }
 
     function ubahJadwal(Request $request,$id)
@@ -197,5 +220,13 @@ class TransaksiBookingController extends Controller
                                        ->orWhere('nim',"LIKE","%".$q."%")
                                        ->get();
             return response()->json($data);
+    }
+
+    public function export_excel(Request $request)
+	{
+        $from = date($request->start_date);
+        $to = date($request->end_date);
+        $namaKoas = $request->nama;
+        return (new transaksiExcels($from,$to,$namaKoas))->download('transaksi.xlsx');	
     }
 }

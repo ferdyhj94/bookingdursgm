@@ -66,11 +66,16 @@ Route::post('master-data/pengguna/activate','UserController@activate')->name('pe
 
 Route::get('pengaturan','PengaturnController@index')->name('pengaturan.index');
 Route::post('pengaturan/jam-operasional','PengaturanController@jamOperasional');
-
 // Auth::routes();
 });
 
-//route koas
+//route admin pegawai
+Route::group(['middleware'=>['auth','checkRole:0,1']],function (){
+    Route::get('transaksi/export-excel','TransaksiBookingController@export_excel')->name('transaksi.excel');
+    Route::get('transaksi/export-pdf','TransaksiBookingController@export_pdf')->name('transaksi.pdf');
+});
+
+//route semua role
 Route::group(['middleware' => ['auth','checkRole:0,1,2']], function () {
 Route::get('logout','LoginController@logout')->name('logout');
 Route::get('home','HomeController@index')->name('home');
