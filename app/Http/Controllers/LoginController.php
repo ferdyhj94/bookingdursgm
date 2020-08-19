@@ -35,7 +35,7 @@ class LoginController extends Controller
 		$login = [$loginType=>$request->username,
 				  'password'=>$request->password];
 				//   print_r($loginType);die();
-		if(auth()->attempt($login))
+		if(auth()->attempt($login) && Auth::user()->aktif=='1')
 		{
 			return redirect('/home');
 		}

@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Carbon;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,8 +25,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        // $schedule->call(function () {
+            
+        // })->dailyAt('08:31','11:31','14:31');
+        $schedule->command('checkexp:update')
+                 ->dailyAt('08:31','11:31','14:31');
     }
 
     /**

@@ -34,7 +34,7 @@
                 <th>Mahasiswa Koas</th>
                 <th>Angkatan</th>
                 <th>Status</th>
-                <!-- <th>Aksi</th> -->
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -54,6 +54,15 @@
                 @elseif($data->status=='2')
                     <td>Inhall</td>
                     @endif
+                    <td>@if($data->status=='0')
+        <a href="{{route('koas.activate',$data->user_id)}}"><button class="btn btn-success" data-toggle="tooltip" data-placement="top"
+                                        title="Aktif"><i class="fas fa-power-off"></i></button></a>
+            @else($data->status=='1')
+            <a href="{{route('koas.deactive',$data->user_id)}}"><button class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                                        title="Non Aktifkan"><i class="fas fa-power-off"></i></button></a>
+                                        @endif
+                                        || <a href="{{route('koas.edit',$data->koas_id)}}"><button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Ubah">
+                                    <i class="fas fa-pencil-alt"></i></button></a></td> </td>
     </tr>
     @empty
     <tr>

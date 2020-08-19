@@ -13,7 +13,9 @@ class MhsKoasController extends Controller
 
     public function index()
     {
-        $koas = DB::table('mahasiswa_koas')->select('nim','nama','angkatan','status')->orderBy('angkatan','desc')->paginate(25);
+        $koas = DB::table('mahasiswa_koas')->select('mahasiswa_koas.id as koas_id','mahasiswa_koas.nim','mahasiswa_koas.nama','mahasiswa_koas.angkatan','mahasiswa_koas.status','users.id as user_id')
+                                           ->join('users','mahasiswa_koas.user_id','=','users.id')
+                                           ->orderBy('angkatan','desc')->paginate(25);
         return view('koas.read',compact('koas'));
     }
     public function tambah()
@@ -50,5 +52,24 @@ class MhsKoasController extends Controller
         $MhsKoas->save();
         session()->flash('message','Menambah data mahasiswa koas berhasil!');
         return redirect('master-data/koas');
+    }
+
+    function deactive(Request $request,$id)
+    {
+        $userMhsKoas = ['aktif'=>0,'updated_by'=>Auth::user()->id];
+        $mhsKoas = ['status'=>0,'updated_by'=>Auth::user()->id];
+        DB::table('users')->where('id','=',$id)->update($userMhsKoas);
+        DB::table('mahasiswa_koas')->where('user_id','=',$id)->update($mhsKoas);
+        return redirect('master-data/koas')->with('message','Sukses menonaktifkan mahasiswa');
+    }
+
+    function activate(Request $request,$id)
+    {
+        $userMhsKoas = ['aktif'=>0,'updated_by'=>Auth::user()->id];
+        $mhsKoas = ['status'=>1,'updated_by'=>Auth::user()->id];
+        DB::table('users')->where('id','=',$id)->update($userMhsKoas);
+        DB::table('mahasiswa_koas')->where('user_id','=',$id)->update($mhsKoas);
+        return redirect('master-data/koas')->with('message','Sukses mengaktifkan mahasiswa');       
+
     }
 }
